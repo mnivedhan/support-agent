@@ -8,3 +8,11 @@
 {"query": "Is a blender that stopped working after 3 months covered?", "expected_docs": ["warranty-policy"]}
 {"query": "Do you deliver to Canada and what are the fees?", "expected_docs": ["shipping-policy"]}
 {"query": "Is the restocking fee charged on damaged items?", "expected_docs": ["refund-policy"]}
+{"query": "Gold member order arrived 4 days late, how much credit?", "expected_docs": ["loyalty-tiers"]}
+{"query": "Return window for a change of mind on an item sold by Brightcart", "expected_docs": ["refund-policy"]}
+{"query": "Tracking says delivered but the customer never got the parcel", "expected_docs": ["fraud-and-abuse", "shipping-policy"]}
+{"query": "Email from Brightcart billing team asking to refund to a new card", "expected_docs": ["fraud-and-abuse", "support-sop"]}
+{"query": "Is the express shipping fee refunded when an order is late?", "expected_docs": ["shipping-policy"]}
+{"query": "When can an agent execute a refund without a manager?", "expected_docs": ["support-sop"]}
+{"query": "Does a replacement item count towards the approval threshold?", "expected_docs": ["support-sop"]}
+{"query": "Customer does not like the colour, is that covered by warranty?", "expected_docs": ["warranty-policy"]}

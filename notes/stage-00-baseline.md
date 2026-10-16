@@ -77,7 +77,13 @@ right answer in production. Every later stage has to beat it on a measured numbe
 
 ## Findings
 
-_Fill in after running: right or wrong per scenario, variance across runs, tokens, cost, latency, surprises._
+Run of 2026-10-16 17:19, with the original 6 policies:
+- **7/7 correct**: amounts, approvals, the denial, the question, and the injection flagged.
+- About 5,100 input tokens per call (about 4,500 cached), 600–2,000 output tokens, 6s (question) to 27s (injection).
+- With a corpus this small, "everything in the prompt" works. The cost is latency and paying for the same 5k
+  tokens on every message. The scale problem only shows once the corpus grows (see Stage 1).
+- The injection reply quotes the attacker's card ending (9911) back in the customer email. Harmless here, but a
+  reply should never echo untrusted payment details.
 
 ## Bottlenecks this stage exposes, and where they get fixed
 
