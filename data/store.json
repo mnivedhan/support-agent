@@ -1,0 +1,41 @@
+{
+  "today": "2026-10-16",
+  "customers": {
+    "C-101": {"name": "Asha Rao", "tier": "standard",
+              "refund_history": [{"order_id": "1001", "date": "2026-03-01", "type": "refund", "amount": 22.00}]},
+    "C-150": {"name": "Jordan Lee", "tier": "standard",
+              "refund_history": [{"order_id": "0870", "date": "2026-05-02", "type": "refund", "amount": 48.00},
+                                 {"order_id": "0954", "date": "2026-08-20", "type": "refund", "amount": 35.00},
+                                 {"order_id": "1012", "date": "2026-09-25", "type": "replacement", "amount": 59.00}]},
+    "C-205": {"name": "Sam Patel", "tier": "standard", "refund_history": []},
+    "C-300": {"name": "Maria Gomez", "tier": "gold", "refund_history": []}
+  },
+  "products": {
+    "P-MUG":  {"name": "Ceramic mug set (4)",      "category": "kitchenware",     "price": 40.00,  "unit_cost": 14.00,  "stock": 25},
+    "P-FRP":  {"name": "French press 1L",          "category": "kitchenware",     "price": 35.00,  "unit_cost": 12.00,  "stock": 10},
+    "P-LAP":  {"name": "Laptop 14in 16GB",         "category": "electronics",     "price": 899.00, "unit_cost": 640.00, "stock": 4},
+    "P-HDP":  {"name": "Wireless headphones",      "category": "electronics",     "price": 65.00,  "unit_cost": 28.00,  "stock": 30},
+    "P-SPK":  {"name": "Bluetooth speaker",        "category": "electronics",     "price": 120.00, "unit_cost": 55.00,  "stock": 12},
+    "P-CASE": {"name": "Speaker travel case",      "category": "accessories",     "price": 60.00,  "unit_cost": 18.00,  "stock": 20},
+    "P-BLD":  {"name": "Blender 600W",             "category": "small_appliance", "price": 129.00, "unit_cost": 60.00,  "stock": 8}
+  },
+  "orders": {
+    "1033": {"customer_id": "C-101", "items": [{"product_id": "P-BLD", "qty": 1, "price": 129.00}],
+             "shipping": {"method": "standard", "fee": 5.99}, "ordered": "2026-08-25", "promised": "2026-09-01",
+             "delivered": "2026-09-01", "tracking": "delivered", "payment": "card ending 4417"},
+    "1042": {"customer_id": "C-101", "items": [{"product_id": "P-MUG", "qty": 1, "price": 40.00},
+                                               {"product_id": "P-FRP", "qty": 1, "price": 35.00}],
+             "shipping": {"method": "standard", "fee": 5.99}, "ordered": "2026-10-05", "promised": "2026-10-10",
+             "delivered": "2026-10-13", "tracking": "delivered", "payment": "card ending 4417"},
+    "1077": {"customer_id": "C-205", "items": [{"product_id": "P-LAP", "qty": 1, "price": 899.00}],
+             "shipping": {"method": "express", "fee": 19.99}, "ordered": "2026-10-10", "promised": "2026-10-12",
+             "delivered": "2026-10-12", "tracking": "delivered", "payment": "card ending 2280"},
+    "1090": {"customer_id": "C-150", "items": [{"product_id": "P-HDP", "qty": 1, "price": 65.00}],
+             "shipping": {"method": "standard", "fee": 5.99}, "ordered": "2026-10-06", "promised": "2026-10-11",
+             "delivered": "2026-10-11", "tracking": "delivered", "payment": "card ending 7731"},
+    "1101": {"customer_id": "C-300", "items": [{"product_id": "P-SPK", "qty": 1, "price": 120.00},
+                                               {"product_id": "P-CASE", "qty": 1, "price": 60.00}],
+             "shipping": {"method": "express", "fee": 14.99}, "ordered": "2026-10-06", "promised": "2026-10-08",
+             "delivered": "2026-10-12", "tracking": "delivered", "payment": "card ending 5562"}
+  }
+}

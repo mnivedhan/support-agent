@@ -1,0 +1,10 @@
+{"query": "How much late-delivery credit does a customer get?", "expected_docs": ["shipping-policy"]}
+{"query": "What late credit does a Gold customer get?", "expected_docs": ["loyalty-tiers"]}
+{"query": "Who must approve a refund above two hundred dollars?", "expected_docs": ["support-sop"]}
+{"query": "Does a broken mug need to be sent back before refunding?", "expected_docs": ["refund-policy"]}
+{"query": "How many days does a customer have to return an item they no longer want?", "expected_docs": ["refund-policy"]}
+{"query": "Customer has had several refunds recently, what checks apply?", "expected_docs": ["fraud-and-abuse"]}
+{"query": "Do we need photos for a damaged laptop claim?", "expected_docs": ["fraud-and-abuse"]}
+{"query": "Is a blender that stopped working after 3 months covered?", "expected_docs": ["warranty-policy"]}
+{"query": "Do you deliver to Canada and what are the fees?", "expected_docs": ["shipping-policy"]}
+{"query": "Is the restocking fee charged on damaged items?", "expected_docs": ["refund-policy"]}
