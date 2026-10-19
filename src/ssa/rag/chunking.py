@@ -8,6 +8,7 @@ both the embedding and the LLM know where it came from. Works here because every
 also needs to split long sections and merge tiny ones.
 """
 
+import re
 from dataclasses import dataclass
 
 from ssa.data import split_front_matter
@@ -15,7 +16,7 @@ from ssa.data import split_front_matter
 
 @dataclass(frozen=True)
 class Chunk:
-    id: str      # "<doc_id>#<n>"
+    id: str      # fixed: "<doc_id>#<n>"; heading: "<doc_id>#<heading-slug>", or "<doc_id>" for a doc without headings
     doc_id: str
     text: str
 
@@ -41,5 +42,6 @@ def heading_chunks(doc_id: str, text: str) -> list[Chunk]:
         content = "\n".join(lines).strip()
         if content:
             path = f"{title} > {heading}" if heading else title
-            chunks.append(Chunk(f"{doc_id}#{len(chunks)}", doc_id, f"{path}\n{content}"))
+            section_id = f"{doc_id}#{re.sub(r'[^a-z0-9]+', '-', heading.lower()).strip('-')}" if heading else doc_id
+            chunks.append(Chunk(section_id, doc_id, f"{path}\n{content}"))
     return chunks

@@ -1,7 +1,10 @@
 """LLM access through the Claude Code CLI (`claude -p`), billed to your Claude Code login instead of an API key.
 
 Every stage calls `complete()` and nothing else, so the backend can later be swapped for the Anthropic API
-(needed for tool use, streaming and high concurrency in later stages) without touching stage code.
+(needed for streaming and high concurrency in later stages) without touching stage code.
+
+With `schema`, the CLI forces the answer to match a JSON Schema and returns it parsed in `data`. Under the hood
+it does this with a hidden tool call, which is why such calls report two turns.
 """
 
 import json
@@ -9,6 +12,7 @@ import os
 import subprocess
 import tempfile
 from dataclasses import dataclass
+from typing import Any
 
 
 @dataclass
@@ -22,6 +26,7 @@ class LLMResult:
     output_tokens: int
     latency_s: float
     cost_usd: float  # list-price equivalent reported by the CLI; not billed on a subscription
+    data: Any = None  # the parsed structured output, when called with a schema
 
 
 class LLMError(RuntimeError):
@@ -29,7 +34,7 @@ class LLMError(RuntimeError):
 
 
 def complete(system: str, user: str, model: str = "claude-opus-5-5", effort: str = "medium",
-             timeout_s: float = 300) -> LLMResult:
+             timeout_s: float = 300, schema: dict | None = None) -> LLMResult:
     cmd = [
         "claude", "-p",
         "--output-format", "json",
@@ -40,6 +45,8 @@ def complete(system: str, user: str, model: str = "claude-opus-5-5", effort: str
         "--strict-mcp-config",       # don't load your MCP servers
         "--no-session-persistence",  # don't fill your session history with test runs
     ]
+    if schema is not None:
+        cmd += ["--json-schema", json.dumps(schema)]
     # With ANTHROPIC_API_KEY set the CLI would bill that key; drop it so your Claude Code login is used.
     env = {k: v for k, v in os.environ.items() if k != "ANTHROPIC_API_KEY"}
     # Run outside the repo so no CLAUDE.md or git status leaks into the prompt.
@@ -65,4 +72,5 @@ def complete(system: str, user: str, model: str = "claude-opus-5-5", effort: str
         output_tokens=usage["output_tokens"],
         latency_s=round(out["duration_ms"] / 1000, 2),
         cost_usd=round(out["total_cost_usd"], 4),
+        data=out.get("structured_output"),
     )
