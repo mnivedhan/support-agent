@@ -11,6 +11,15 @@ def load_knowledge() -> dict[str, str]:
     return {p.stem: p.read_text() for p in sorted((DATA_DIR / "knowledge").glob("*.md"))}
 
 
+def split_front_matter(markdown: str) -> tuple[dict[str, str], str]:
+    """Split the `---` header (title, doc_type, applies_to) from the body. Flat `key: value` lines only."""
+    if not markdown.startswith("---\n"):
+        return {}, markdown
+    header, body = markdown[4:].split("\n---\n", 1)
+    meta = dict(line.split(": ", 1) for line in header.splitlines() if ": " in line)
+    return meta, body.lstrip("\n")
+
+
 def load_store() -> dict:
     """Customers, products and orders: the store's database snapshot."""
     return json.loads((DATA_DIR / "store.json").read_text())

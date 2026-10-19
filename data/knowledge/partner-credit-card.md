@@ -1,6 +1,7 @@
 ---
 title: Brightcart Partner Credit Card
 doc_type: help
+applies_to: partner_card
 ---
 # About the card
 The Brightcart Rewards Visa is issued by a partner bank, not by Brightcart. It has its own tiers: Blue, Gold and

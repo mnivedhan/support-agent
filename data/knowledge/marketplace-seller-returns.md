@@ -1,6 +1,7 @@
 ---
 title: Returns for Marketplace Seller Items
 doc_type: help
+applies_to: marketplace_item
 ---
 # Scope
 Items sold by third-party marketplace sellers are marked "Sold by" a seller other than Brightcart on the product

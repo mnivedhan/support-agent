@@ -50,10 +50,10 @@ def main(names: list[str]) -> None:
             out.write(json.dumps(row) + "\n")
             results.append(row)
 
-    print(f"\n{'scenario':<24}{'in tok':>8}{'out tok':>9}{'latency':>9}  {'missing docs':<34}expected")
+    print(f"\n{'scenario':<24}{'in tok':>8}{'cached':>8}{'out tok':>9}{'latency':>9}  {'missing docs':<34}expected")
     for r in results:
         e = r["expect"]
-        print(f"{r['name']:<24}{r['input_tokens']:>8}{r['output_tokens']:>9}{r['latency_s']:>8}s  "
+        print(f"{r['name']:<24}{r['input_tokens']:>8}{r['cache_read_tokens']:>8}{r['output_tokens']:>9}{r['latency_s']:>8}s  "
               f"{', '.join(r['missing']) or '-':<34}{e['final_status']}, ${e['case_value']:.2f}, "
               f"approval={e['needs_approval']}")
     print(f"\ntotal ${sum(r['cost_usd'] for r in results):.4f} (list-price equivalent)   saved to {out_path}")

@@ -17,7 +17,8 @@ has a finished reference design in its `reference/` folder.
 | # | Stage | Bottleneck it exposes, and the fix |
 |---|---|---|
 | 0 | **Baseline:** every policy + the store DB in one prompt, one call | Prompt size and cost grow with the data; made-up numbers; unstructured output |
-| 1 | Simple RAG: fixed-size chunks, embeddings, cosine search | Misses exact terms like "Gold" or order IDs; splits rules at bad places → hit@k evals, BM25 + dense search, RRF, reranking |
+| 1 | Simple RAG: fixed-size chunks, embeddings, cosine search | Eval doesn't look like real traffic; DB facts aren't in the message; rules split in half; look-alike docs |
+| 1b | RAG fixes: heading chunks, hybrid BM25 + RRF, case-context queries, scope filters, pinned SOP | Measured one fix at a time; leaves vocabulary gaps and doc-level labels that hide section misses |
 | 2 | Structured output + read-only store tools; code does the math | LLM arithmetic and date errors, invalid JSON → pydantic checks, retries, a refund calculator in code |
 | 3 | LangGraph state machine with a critic step | Endless loops, prompt injection → step budgets, guardrails, least-privilege tools |
 | 4 | Manager approval + saved checkpoints | Process crashes while waiting for approval → state in a database, resume on any worker |
@@ -43,9 +44,10 @@ LLM calls go through `src/ssa/llm.py`, which runs `claude -p` on your Claude Cod
 ## Layout
 
 ```
-data/knowledge/   6 policies: support SOP, refunds, shipping, loyalty tiers, warranty, fraud
+data/knowledge/   6 core policies + 20 help articles (some scoped with applies_to)
 data/store.json   customers (tier, refund history), products, orders; "today" is fixed at 2026-10-16
-data/evals/       scenarios.jsonl (7 customer messages with expected outcomes), retrieval.jsonl (for Stage 1)
+data/evals/       scenarios.jsonl (7 customer messages with expected outcomes), retrieval.jsonl (policy questions),
+                  retrieval_cases.jsonl (customer-style messages)
 src/ssa/          the system as it grows
 notes/            one learning journal per stage
 runs/             raw output of every run (git-ignored), used to compare stages

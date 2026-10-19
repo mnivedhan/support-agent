@@ -1,6 +1,7 @@
 ---
 title: Holiday Return Extension
 doc_type: help
+applies_to: holiday_purchase
 ---
 # Extended window
 Items bought between 15 November and 24 December can be returned for a change of mind until 31 January of the
