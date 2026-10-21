@@ -82,4 +82,4 @@ def main(names: list[str], runner: Callable[[dict, dict], AgentRun], tag: str) -
 
 if __name__ == "__main__":
     # main(sys.argv[1:], runner=run_graph, tag="stage2-langgraph")
-    main("laptop-cracked-screen", runner=run_graph, tag="stage2-langgraph")
+    main("prompt-injection", runner=run_graph, tag="stage2-langgraph")

@@ -194,12 +194,13 @@ def build_graph(model: BaseChatModel):
             errors = [f"invalid arguments: {e.errors(include_url=False)}"]
             final = None
         else:
+            # Validating if the LLm decision has required information.
             errors = check_decision(final.decision, state["message"], state["store"], set(base.policy_sections()))
         resolution = None
         if final and not errors:
             resolution = resolve(final.decision, state["message"], state["store"])
             seen = [state["case_data"]] + [m.content for m in state["messages"] if isinstance(m, ToolMessage)]
-            # Grounding the output
+            # Grounding the output, Validating if the LLm reply is right.
             errors = check_reply(final.reply, resolution, seen)
 
         trace = [{"step": n, "final": final_call["args"], "rejected": errors}]

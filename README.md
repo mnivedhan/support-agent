@@ -20,8 +20,8 @@ has a finished reference design in its `reference/` folder.
 | 1 | Simple RAG: fixed-size chunks, embeddings, cosine search | Eval doesn't look like real traffic; DB facts aren't in the message; rules split in half; look-alike docs |
 | 1b | RAG fixes: heading chunks, hybrid BM25 + RRF, case-context queries, scope filters, pinned SOP | Measured one fix at a time; leaves vocabulary gaps and doc-level labels that hide section misses |
 | 2 | Tool-using agent loop + structured output; code does the math | Model classifies, code calculates; schema + semantic + grounding checks with repair; graded automatically |
-| 3 | LangGraph state machine with a critic step | Endless loops, prompt injection → step budgets, guardrails, least-privilege tools |
-| 4 | Manager approval + saved checkpoints | Process crashes while waiting for approval → state in a database, resume on any worker |
+| 3 | Guardrails in code, case-scoped tools, budgets, a critic | 6 attacks: intake quarantine (0 LLM calls), sanitised tool data; the critic itself gets socially engineered |
+| 4 | Manager approval + saved checkpoints | Approval lost on restart; payments repeated on recovery; approvals of stale data → SQLite checkpoints, `interrupt()`, idempotent ledger, re-check before executing |
 | 5 | FastAPI service | LLM latency blocks requests → return 202, hand work to background workers |
 | 6 | Redis Streams queue + multi-agent fleet (triage, resolver, comms) | Duplicate messages, crashed workers → idempotent refunds, retries, dead-letter queue |
 | 7 | Production RAG at scale | 6 short policies hide every RAG problem → large help centre, pgvector/Qdrant, incremental ingest, caching |
@@ -52,4 +52,5 @@ data/evals/       scenarios.jsonl (7 customer messages with expected outcomes), 
 src/ssa/          the system as it grows
 notes/            one learning journal per stage
 runs/             raw output of every run (git-ignored), used to compare stages
+var/              Stage 4's checkpoints and ledger databases (git-ignored)
 ```

@@ -7,7 +7,7 @@ name = "ssa"
 version = "0.0.1"
 description = "Online store support agent, built stage by stage to learn production agentic and RAG systems"
 requires-python = ">=3.11,<4.0.0"
-dependencies = ["numpy>=1.26", "pydantic>=2.7", "langchain>=1.4.6", "langgraph>=1.2", "langchain-google-genai>=4.4", "python-dotenv>=1.0"]
+dependencies = ["numpy>=1.26", "pydantic>=2.7", "langchain>=1.4.6", "langgraph>=1.2", "langgraph-checkpoint-sqlite>=3.0", "langchain-google-genai>=4.4", "python-dotenv>=1.0"]
 
 [project.optional-dependencies]
 dev = ["pytest>=8", "ruff>=0.5"]
